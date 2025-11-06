@@ -1,0 +1,966 @@
+[
+    {
+        "id": "42b6ff740f3345fd",
+        "type": "tab",
+        "label": "Combined Daily Logging (1-min Interval)",
+        "disabled": false,
+        "info": "This flow collects sensor data and saves it to a daily CSV file, but is rate-limited to only save once per minute.",
+        "env": []
+    },
+    {
+        "id": "656e2687bc26427a",
+        "type": "mqtt in",
+        "z": "42b6ff740f3345fd",
+        "name": "Humidity",
+        "topic": "sensor/ESP32/humidity",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3bad1ed1486e501d",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "da32bd7013ece725",
+                "6c0e12f045b20d92",
+                "ea8c584858fe031c"
+            ]
+        ]
+    },
+    {
+        "id": "82f223ea3dde7c74",
+        "type": "mqtt in",
+        "z": "42b6ff740f3345fd",
+        "name": "Air Temperature",
+        "topic": "sensor/ESP32/temperature",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3bad1ed1486e501d",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 200,
+        "wires": [
+            [
+                "2e55be5e53daf344",
+                "b228a9f604884d2c",
+                "6b163eb2f4270fbe"
+            ]
+        ]
+    },
+    {
+        "id": "fbffcceb361b3cc6",
+        "type": "mqtt in",
+        "z": "42b6ff740f3345fd",
+        "name": "ORP",
+        "topic": "sensor/ESP32/ORP",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3bad1ed1486e501d",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 280,
+        "wires": [
+            [
+                "967006eead5a3140",
+                "884386d2a5f7c15e",
+                "add4916e6fb3a8c9"
+            ]
+        ]
+    },
+    {
+        "id": "81d47e7b67ec6502",
+        "type": "mqtt in",
+        "z": "42b6ff740f3345fd",
+        "name": "EC",
+        "topic": "sensor/ESP32/EC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3bad1ed1486e501d",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 360,
+        "wires": [
+            [
+                "1500f7ef6e6a2b58",
+                "ffb60b1b0f3b4de1",
+                "f9f46bbb7e951906"
+            ]
+        ]
+    },
+    {
+        "id": "5473946f94fae73e",
+        "type": "mqtt in",
+        "z": "42b6ff740f3345fd",
+        "name": "Water Temperature (Trigger)",
+        "topic": "sensor/ESP32/WT",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3bad1ed1486e501d",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 500,
+        "wires": [
+            [
+                "ef26fe140dc72008",
+                "5df403ba13760117",
+                "4ff04752c29d62af"
+            ]
+        ]
+    },
+    {
+        "id": "ea8c584858fe031c",
+        "type": "function",
+        "z": "42b6ff740f3345fd",
+        "name": "Store Humidity",
+        "func": "flow.set('humidity', msg.payload);\nreturn null;",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "6b163eb2f4270fbe",
+        "type": "function",
+        "z": "42b6ff740f3345fd",
+        "name": "Store Air Temp",
+        "func": "flow.set('temperature_air', msg.payload);\nreturn null;",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "add4916e6fb3a8c9",
+        "type": "function",
+        "z": "42b6ff740f3345fd",
+        "name": "Store ORP",
+        "func": "flow.set('orp', msg.payload);\nreturn null;",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "f9f46bbb7e951906",
+        "type": "function",
+        "z": "42b6ff740f3345fd",
+        "name": "Store EC",
+        "func": "flow.set('ec', msg.payload);\nreturn null;",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "4ff04752c29d62af",
+        "type": "function",
+        "z": "42b6ff740f3345fd",
+        "name": "Store Water Temp",
+        "func": "flow.set('temperature_water', msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 500,
+        "wires": [
+            [
+                "d58be3d98bf3715f"
+            ]
+        ]
+    },
+    {
+        "id": "d58be3d98bf3715f",
+        "type": "delay",
+        "z": "42b6ff740f3345fd",
+        "name": "Rate Limit (1 msg/min)",
+        "pauseType": "rate",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "drop": true,
+        "outputs": 1,
+        "x": 680,
+        "y": 500,
+        "wires": [
+            [
+                "gate_node"
+            ]
+        ]
+    },
+    {
+        "id": "gate_node",
+        "type": "switch",
+        "z": "42b6ff740f3345fd",
+        "name": "Is Recording?",
+        "property": "isRecording",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 500,
+        "wires": [
+            [
+                "0b065bc3e347f2f1"
+            ]
+        ]
+    },
+    {
+        "id": "0b065bc3e347f2f1",
+        "type": "function",
+        "z": "42b6ff740f3345fd",
+        "name": "Compile Data",
+        "func": "var now = new Date();\n\nmsg.payload = {\n    timestamp: now.toISOString(),\n    temperature_air: flow.get('temperature_air') || \"\",\n    humidity: flow.get('humidity') || \"\",\n    orp: flow.get('orp') || \"\",\n    ec: flow.get('ec') || \"\",\n    temperature_water: flow.get('temperature_water') || \"\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1070,
+        "y": 500,
+        "wires": [
+            [
+                "68c49ccf6fecd552"
+            ]
+        ]
+    },
+    {
+        "id": "68c49ccf6fecd552",
+        "type": "function",
+        "z": "42b6ff740f3345fd",
+        "name": "Filename generator",
+        "func": "var now = new Date();\nvar yyyy = now.getFullYear();\nvar mm = String(now.getMonth() + 1).padStart(2, '0');\nvar dd = String(now.getDate()).padStart(2, '0');\n\nmsg.fname = `${yyyy}${mm}${dd}_data.csv`;\n// IMPORTANT: Change this path to a directory on your system\nmsg.filename = `/home/user/mqtt_data/${msg.fname}`;\n\n// We save the current payload into a different place on the msg object\nmsg.filecontent = msg.payload;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 500,
+        "wires": [
+            [
+                "f374d47b844518ea"
+            ]
+        ]
+    },
+    {
+        "id": "f374d47b844518ea",
+        "type": "file in",
+        "z": "42b6ff740f3345fd",
+        "name": "Check if file exists",
+        "filename": "filename",
+        "filenameType": "msg",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 1490,
+        "y": 500,
+        "wires": [
+            [
+                "2e93b3b637423b45"
+            ]
+        ]
+    },
+    {
+        "id": "7192bc09916549d6",
+        "type": "catch",
+        "z": "42b6ff740f3345fd",
+        "name": "Catch file error",
+        "scope": [
+            "f374d47b844518ea"
+        ],
+        "uncaught": false,
+        "x": 1480,
+        "y": 560,
+        "wires": [
+            [
+                "4e37685490b155a8"
+            ]
+        ]
+    },
+    {
+        "id": "4e37685490b155a8",
+        "type": "change",
+        "z": "42b6ff740f3345fd",
+        "name": "Get Content (New File)",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "filecontent",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1700,
+        "y": 560,
+        "wires": [
+            [
+                "a2894e8b2b602014"
+            ]
+        ]
+    },
+    {
+        "id": "2e93b3b637423b45",
+        "type": "change",
+        "z": "42b6ff740f3345fd",
+        "name": "Get Content (Append)",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "filecontent",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1700,
+        "y": 460,
+        "wires": [
+            [
+                "4d958e7abc8ef096"
+            ]
+        ]
+    },
+    {
+        "id": "a2894e8b2b602014",
+        "type": "csv",
+        "z": "42b6ff740f3345fd",
+        "name": "Add Header",
+        "sep": ",",
+        "hdrin": "",
+        "hdrout": "all",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "timestamp,temperature_air,humidity,orp,ec,temperature_water",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": true,
+        "include_null_values": true,
+        "x": 1900,
+        "y": 560,
+        "wires": [
+            [
+                "82b9f1b0efd2734d"
+            ]
+        ]
+    },
+    {
+        "id": "4d958e7abc8ef096",
+        "type": "csv",
+        "z": "42b6ff740f3345fd",
+        "name": "No Header",
+        "sep": ",",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "timestamp,temperature_air,humidity,orp,ec,temperature_water",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": true,
+        "include_null_values": true,
+        "x": 1900,
+        "y": 460,
+        "wires": [
+            [
+                "82b9f1b0efd2734d"
+            ]
+        ]
+    },
+    {
+        "id": "82b9f1b0efd2734d",
+        "type": "file",
+        "z": "42b6ff740f3345fd",
+        "name": "Save to Daily CSV",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "utf8",
+        "x": 2110,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "init_record_state",
+        "type": "inject",
+        "z": "42b6ff740f3345fd",
+        "name": "Initialize Recording State to OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 220,
+        "y": 600,
+        "wires": [
+            [
+                "set_record_state"
+            ]
+        ]
+    },
+    {
+        "id": "set_record_state",
+        "type": "change",
+        "z": "42b6ff740f3345fd",
+        "name": "Set flow.isRecording",
+        "rules": [
+            {
+                "t": "set",
+                "p": "isRecording",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "toggle_button",
+        "type": "ui_button",
+        "z": "42b6ff740f3345fd",
+        "name": "",
+        "group": "0f9e1d1b.a2a3e4",
+        "order": 1,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "Start / Stop Recording",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "topic": "toggle",
+        "topicType": "str",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 660,
+        "wires": [
+            [
+                "toggle_function"
+            ]
+        ]
+    },
+    {
+        "id": "toggle_function",
+        "type": "function",
+        "z": "42b6ff740f3345fd",
+        "name": "Toggle flow.isRecording",
+        "func": "let isRecording = flow.get('isRecording') || false;\nisRecording = !isRecording;\nflow.set('isRecording', isRecording);\n\nif (isRecording) {\n    node.status({fill:\"green\", shape:\"dot\", text:\"RECORDING\"});\n} else {\n    node.status({fill:\"red\", shape:\"ring\", text:\"STOPPED\"});\n}\n\nreturn null;",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nlet isRecording = flow.get('isRecording') || false;\nif (isRecording) {\n    node.status({fill:\"green\", shape:\"dot\", text:\"RECORDING\"});\n} else {\n    node.status({fill:\"red\", shape:\"ring\", text:\"STOPPED\"});\n}",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "da32bd7013ece725",
+        "type": "ui_gauge",
+        "z": "42b6ff740f3345fd",
+        "name": "",
+        "group": "d604ecd43d046f2e",
+        "order": 3,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "RH%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 340,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "6c0e12f045b20d92",
+        "type": "ui_chart",
+        "z": "42b6ff740f3345fd",
+        "name": "",
+        "group": "d604ecd43d046f2e",
+        "order": 4,
+        "width": 6,
+        "height": 4,
+        "label": "Humidity",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 580,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2e55be5e53daf344",
+        "type": "ui_chart",
+        "z": "42b6ff740f3345fd",
+        "name": "",
+        "group": "d604ecd43d046f2e",
+        "order": 2,
+        "width": 6,
+        "height": 4,
+        "label": "Air Temperature",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "50",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ff9896",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#1f77b4",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 600,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b228a9f604884d2c",
+        "type": "ui_gauge",
+        "z": "42b6ff740f3345fd",
+        "name": "",
+        "group": "d604ecd43d046f2e",
+        "order": 1,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Air Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "60",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 380,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "967006eead5a3140",
+        "type": "ui_chart",
+        "z": "42b6ff740f3345fd",
+        "name": "",
+        "group": "d604ecd43d046f2e",
+        "order": 8,
+        "width": 6,
+        "height": 4,
+        "label": "ORP",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "500",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#98df8a",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#1f77b4",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 580,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "884386d2a5f7c15e",
+        "type": "ui_gauge",
+        "z": "42b6ff740f3345fd",
+        "name": "",
+        "group": "d604ecd43d046f2e",
+        "order": 7,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "ORP",
+        "label": "mV",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "500",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 340,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "1500f7ef6e6a2b58",
+        "type": "ui_chart",
+        "z": "42b6ff740f3345fd",
+        "name": "",
+        "group": "d604ecd43d046f2e",
+        "order": 10,
+        "width": 6,
+        "height": 4,
+        "label": "EC",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "1000",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#2ca02c",
+            "#aec7e8",
+            "#ff7f0e",
+            "#1f77b4",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 570,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ffb60b1b0f3b4de1",
+        "type": "ui_gauge",
+        "z": "42b6ff740f3345fd",
+        "name": "",
+        "group": "d604ecd43d046f2e",
+        "order": 9,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "EC",
+        "label": "uS/cm",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 340,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "ef26fe140dc72008",
+        "type": "ui_chart",
+        "z": "42b6ff740f3345fd",
+        "name": "",
+        "group": "d604ecd43d046f2e",
+        "order": 6,
+        "width": 6,
+        "height": 4,
+        "label": "Water Temperature",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "50",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ff7f0e",
+            "#aec7e8",
+            "#1f77b4",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 620,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5df403ba13760117",
+        "type": "ui_gauge",
+        "z": "42b6ff740f3345fd",
+        "name": "",
+        "group": "d604ecd43d046f2e",
+        "order": 5,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Water Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 390,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "3bad1ed1486e501d",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "192.168.1.103",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "d604ecd43d046f2e",
+        "type": "ui_group",
+        "name": "Sensor Readings",
+        "tab": "dd892d8b515161a4",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "dd892d8b515161a4",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "0f9e1d1b.a2a3e4",
+        "type": "ui_group",
+        "name": "Controls",
+        "tab": "dd892d8b515161a4",
+        "order": 2,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    }
+]
+
